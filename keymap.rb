@@ -40,11 +40,11 @@ kbd.add_layer :lower, [
 #                   key name        Array of Keycode       or Proc                              threshold(ms)     threshold(ms)
 #                                   or Proc                while you                            to consider as    to consider as
 #                                   when you click         keep press                           `click the key`   `hold the key`
-kbd.define_mode_key :ALT_AT,      [ :KC_AT,                :KC_LALT                           , 200,              150 ]
-kbd.define_mode_key :CTL_EQ,      [ :KC_EQUAL,             :KC_LCTL                           , 200,              150 ]
-kbd.define_mode_key :SPC_CTL,     [ %i(KC_SPACE KC_RCTL),  :KC_RCTL                           , 200,              150 ]
-kbd.define_mode_key :RAISE_ENT,   [ :KC_ENTER,             Proc.new { kbd.hold_layer :raise  }, 200,              150 ]
-kbd.define_mode_key :LOWER_SPC,   [ :KC_SPACE,             Proc.new { kbd.hold_layer :lower  }, 300,              400 ]
+kbd.define_mode_key :ALT_AT,      [ :KC_AT,                :KC_LALT                           , 100,              150 ]
+kbd.define_mode_key :CTL_EQ,      [ :KC_EQUAL,             :KC_LCTL                           , 100,              150 ]
+kbd.define_mode_key :SPC_CTL,     [ %i(KC_SPACE KC_RCTL),  :KC_RCTL                           , 100,              150 ]
+kbd.define_mode_key :RAISE_ENT,   [ :KC_ENTER,             Proc.new { kbd.hold_layer :raise  }, 100,              150 ]
+kbd.define_mode_key :LOWER_SPC,   [ :KC_SPACE,             Proc.new { kbd.hold_layer :lower  }, 100,              150 ]
 #kbd.define_mode_key :ADJUST,      [ nil,                   Proc.new { kbd.hold_layer :adjust }, nil,              nil ]
                                                             # ^^^^^^^^^^ `hold_layer` will "hold" layer while pressed
 
@@ -81,5 +81,9 @@ kbd.define_mode_key :LOWER_SPC,   [ :KC_SPACE,             Proc.new { kbd.hold_l
 #  kbd.invert_sft if kbd.keys_include?(:KC_SCOLON)
 #  # You'll be also able to write `invert_ctl`, `invert_alt` and `invert_gui`
 #end
+
+# Initialize RGBLED with pin, pixel_size and is_rgbw.
+# 32bit data will be sent to LED if `is_rgbw` is true while 24bit if false
+kbd.init_rgb(0, 27, false)
 
 kbd.start!
