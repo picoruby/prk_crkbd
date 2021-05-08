@@ -8,7 +8,9 @@ kbd = Keyboard.new
 
 # `split=` should happen before `init_pins`
 kbd.split = true
-#kbd.set_anchor(:right)
+
+# If your right hand of CRKBD is the "anchor"
+# kbd.set_anchor(:right)
 
 # Initialize GPIO assign
 kbd.init_pins(
@@ -48,32 +50,6 @@ kbd.define_mode_key :LOWER_SPC,   [ :KC_SPACE,             Proc.new { kbd.hold_l
 #kbd.define_mode_key :ADJUST,      [ nil,                   Proc.new { kbd.hold_layer :adjust }, nil,              nil ]
                                                             # ^^^^^^^^^^ `hold_layer` will "hold" layer while pressed
 
-#
-# Alternatively, you can also write like:
-#
-# kbd.add_layer :default, [
-#   %i(KC_A SHIFT_RAISE),
-#   %i(KC_B SHIFT_SPACE),
-# ]
-# kbd.add_layer :raise, [
-#   %i(KC_C SHIFT_LOWER),
-#   %i(KC_D SPACE_LOWER),
-# ]
-# kbd.add_layer :lower, [
-#   %i(KC_E SHIFT_DEFAULT),
-#   %i(KC_F LOWER_SPACE),
-# ]
-# kbd.define_mode_key :SHIFT_RAISE,   [ Proc.new { kbd.lock_layer :raise },   :KC_RSFT,         200,              200 ]
-# kbd.define_mode_key :SHIFT_LOWER,   [ Proc.new { kbd.lock_layer :lower },   :KC_RSFT,         200,              200 ]
-# kbd.define_mode_key :SHIFT_DEFAULT, [ Proc.new { kbd.lock_layer :default }, :KC_RSFT,         200,              200 ]
-#                                                      ^^^^^^^^^^ `lock_layer` will "lock" layer to specified one
-# kbd.define_mode_key :SHIFT_SPACE,   [ :KC_SPACE,                            :KC_LSFT,         300,              400 ]
-# kbd.define_mode_key :SPACE_LOWER,   [ Proc.new { kbd.lower_layer },         :KC_LCTL,         200,              200 ]
-#
-# Other than `hold_layer` and `lock_layer`, `raise_layer` and `lower_layer` will switch current layer in order
-#
-
-
 # `before_report` will work just right before reporting what keys are pushed to USB host.
 # You can use it to hack data by adding an instance method to Keyboard class by yourself.
 # ex) Use Keyboard#before_report filter if you want to input `":" w/o shift` and `";" w/ shift`
@@ -83,11 +59,20 @@ kbd.define_mode_key :LOWER_SPC,   [ :KC_SPACE,             Proc.new { kbd.hold_l
 #end
 
 # Initialize RGBLED with pin, underglow_size, backlight_size and is_rgbw.
-#kbd.init_rgb(
-#  0,    # pin number
-#  6,    # size of underglow pixel
-#  21,   # size of backlight pixel
-#  false # 32bit data will be sent to a pixel if true while 24bit if false
-#)
+rgb = RGB.new(
+  0,    # pin number
+  6,    # size of underglow pixel
+  21,   # size of backlight pixel
+  false # 32bit data will be sent to a pixel if true while 24bit if false
+)
+# Set an effect
+#  `nil` or `:off` for turning off, `:breathing` for "color breathing", `:rainbow` for "rainbow snaking"
+#rgb.effect = :rainbow
+rgb.effect = :breathing
+# Set an action when you input
+#  `nil` or `:off` for turning off
+rgb.action = :thunder
+# Append the feature. Will possibly be able to write `Keyboard#append(OLED.new)` in the future
+kbd.append rgb
 
 kbd.start!
