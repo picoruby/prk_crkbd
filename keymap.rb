@@ -10,7 +10,7 @@ kbd = Keyboard.new
 kbd.split = true
 
 # If your right hand of CRKBD is the "anchor"
-# kbd.set_anchor(:right)
+kbd.set_anchor(:right)
 
 # Initialize GPIO assign
 kbd.init_pins(
@@ -71,7 +71,7 @@ rgb = RGB.new(
 rgb.effect = :breathing
 # Set an action when you input
 #  `nil` or `:off` for turning off
-rgb.action = :thunder
+#rgb.action = :thunder
 # Append the feature. Will possibly be able to write `Keyboard#append(OLED.new)` in the future
 kbd.append rgb
 
