@@ -23,7 +23,7 @@ kbd.add_layer :default, %i[
   KC_ESCAPE KC_Q    KC_W    KC_E        KC_R      KC_T       KC_Y      KC_U      KC_I      KC_O     KC_P      KC_MINUS
   KC_TAB    KC_A    KC_S    KC_D        KC_F      KC_G       KC_H      KC_J      KC_K      KC_L     KC_SCOLON KC_BSPACE
   KC_LSFT   KC_Z    KC_X    KC_C        KC_V      KC_B       KC_N      KC_M      KC_COMMA  KC_DOT   KC_SLASH  KC_RSFT
-  KC_NO     KC_NO   KC_NO   ALT_AT      KC_LCTL   LOWER_SPC  RAISE_ENT SPC_CTL   KC_RGUI  KC_NO     KC_NO     KC_NO
+  KC_NO     KC_NO   KC_NO   ALT_AT      KC_LCTL   LOWER_SPC  RAISE_ENT SPC_CTL   RUBY_GUI  KC_NO     KC_NO     KC_NO
 ]
 kbd.add_layer :raise, %i[
   KC_GRAVE  KC_EXLM KC_AT   KC_HASH     KC_DLR    KC_PERC    KC_CIRC   KC_AMPR   KC_ASTER  KC_LPRN  KC_RPRN   KC_EQUAL
@@ -46,6 +46,7 @@ kbd.define_mode_key :ALT_AT,      [ :KC_AT,                :KC_LALT,            
 kbd.define_mode_key :SPC_CTL,     [ %i(KC_SPACE KC_RCTL),  :KC_RCTL,                     120,              150 ]
 kbd.define_mode_key :RAISE_ENT,   [ :KC_ENTER,             :raise,                       120,              150 ]
 kbd.define_mode_key :LOWER_SPC,   [ :KC_SPACE,             :lower,                       120,              150 ]
+kbd.define_mode_key :RUBY_GUI,    [ Proc.new { kbd.ruby }, :KC_RGUI,                     300,              nil ]
 #kbd.define_mode_key :ADJUST,      [ nil,           Proc.new { kbd.hold_layer :adjust }, nil,              nil ]
                                                     # ^^^^^^^^^^ `hold_layer` will "hold" layer while pressed
 
