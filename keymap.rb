@@ -10,10 +10,10 @@ kbd.split = true
 #   - Make sure to disconnect the TRS(TRRS) cable when you change
 #     this configuration. Reconnect them after changing BOTH halves
 #   - Keys RGB_xxx are working on partner half only using this option
-# kbd.mutual_uart_at_my_own_risk = true
+kbd.mutual_uart_at_my_own_risk = true
 
 # If your right hand of CRKBD is the "anchor"
-# kbd.set_anchor(:right)
+kbd.set_anchor(:right)
 
 # Initialize GPIO assign
 kbd.init_pins(
@@ -46,17 +46,19 @@ kbd.add_layer :adjust, %i[
   RGB_TOG   RGB_SPD RGB_HUD RGB_SAD     RGB_VAD RGB_RMOD  KC_NO     KC_NO     KC_NO     KC_NO    KC_NO     KC_NO
   KC_NO     KC_NO   KC_NO   ALT_AT      KC_LCTL ADJUST    ADJUST    SPC_CTL   KC_RGUI   KC_NO    KC_NO     KC_NO
 ]
+
+kbd.define_composite_key :SPC_CTL, %i(KC_SPACE KC_RCTL)
+
 #
-#                   Your custom     Keycode or             Keycode (only modifiers)      Release time      Re-push time
-#                   key name        Array of Keycode       or Layer Symbol to be held    threshold(ms)     threshold(ms)
-#                                   or Proc                or Proc which will run        to consider as    to consider as
-#                                   when you click         while you keep press          `click the key`   `hold the key`
-kbd.define_mode_key :ALT_AT,      [ :KC_AT,                :KC_LALT,                     120,              150 ]
-kbd.define_mode_key :SPC_CTL,     [ %i(KC_SPACE KC_RCTL),  :KC_RCTL,                     120,              150 ]
-kbd.define_mode_key :RAISE_ENT,   [ :KC_ENTER,             :raise,                       120,              150 ]
-kbd.define_mode_key :LOWER_SPC,   [ :KC_SPACE,             :lower,                       120,              150 ]
-kbd.define_mode_key :RUBY_GUI,    [ Proc.new { kbd.ruby }, :KC_RGUI,                     300,              nil ]
-kbd.define_mode_key :ADJUST,      [ nil,                   :adjust,                      nil,              nil ]
+#                   Your custom     Keycode or             Keycode (only modifiers)    Release time     Re-push time
+#                   key name        Array of Keycode       or Layer Symbol to be held  threshold(ms)    threshold(ms)
+#                                   or Proc                or Proc which will run      to consider as   to consider as
+#                                   when you click         while you keep press        `click the key`  `hold the key`
+kbd.define_mode_key :ALT_AT,      [ :KC_AT,                :KC_LALT,                   150,             150 ]
+kbd.define_mode_key :RAISE_ENT,   [ :KC_ENTER,             :raise,                     150,             150 ]
+kbd.define_mode_key :LOWER_SPC,   [ :KC_SPACE,             :lower,                     150,             150 ]
+kbd.define_mode_key :RUBY_GUI,    [ Proc.new { kbd.ruby }, :KC_RGUI,                   300,             nil ]
+kbd.define_mode_key :ADJUST,      [ nil,                   :adjust,                    nil,             nil ]
 
 # `before_report` will work just right before reporting what keys are pushed to USB host.
 # You can use it to hack data by adding an instance method to Keyboard class by yourself.
