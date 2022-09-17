@@ -1,5 +1,7 @@
 require "via"
 
+puts "==== Corne ===="
+
 kbd = Keyboard.new
 kbd.via = true
 kbd.via_layer_count = 4
